@@ -1,6 +1,7 @@
 module Count exposing (..)
 
 import Html exposing (Html, div, text, program, button)
+import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
 
 
@@ -21,8 +22,8 @@ init =
 
 
 type Msg
-    = Increment
-    | Decrement
+    = Increment Int
+    | Decrement Int
 
 
 
@@ -32,11 +33,11 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Increment ->
-            ( model + 1, Cmd.none )
+        Increment num ->
+            ( model + num, Cmd.none )
 
-        Decrement ->
-            ( model - 1, Cmd.none )
+        Decrement num ->
+            ( model - num, Cmd.none )
 
 
 
@@ -45,10 +46,27 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ button [ onClick Decrement ] [ text "-" ]
-        , text <| toString model
-        , button [ onClick Increment ] [ text "+" ]
+    div
+        [ style
+            [ ( "text-align", "center" )
+            , ( "margin", "100px auto" )
+            ]
+        ]
+        [ div []
+            [ button [ onClick (Decrement 1) ] [ text "-1" ]
+            , text <| toString model
+            , button [ onClick (Increment 1) ] [ text "+1" ]
+            ]
+        , div []
+            [ button [ onClick (Decrement 2) ] [ text "-2" ]
+            , text <| toString model
+            , button [ onClick (Increment 2) ] [ text "+2" ]
+            ]
+        , div []
+            [ button [ onClick (Decrement 3) ] [ text "-3" ]
+            , text <| toString model
+            , button [ onClick (Increment 3) ] [ text "+3" ]
+            ]
         ]
 
 
